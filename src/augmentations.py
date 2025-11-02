@@ -82,7 +82,7 @@ def jitter(signal, snr_db=25):
     return noisy_signal
 
 
-def scale(signal, scale_std_dev=0.2):
+def scale(signal, std_dev=0.2):
     """
     Scales the input signal by multiplying it with random scalars drawn from a normal distribution.
 
@@ -100,7 +100,7 @@ def scale(signal, scale_std_dev=0.2):
     """
     # Generate random scaling factors for each channel
     scaling_factors = np.random.normal(
-        loc=1.0, scale=scale_std_dev, size=signal.shape[1]
+        loc=1.0, scale=std_dev, size=signal.shape[1]
     )
 
     # Apply the scaling factors to the signal

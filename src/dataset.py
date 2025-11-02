@@ -132,19 +132,19 @@ class EMGDataset(Dataset):
                 x = emg_np[i]
 
                 if self.permutation != 0:
-                    x = permute(x, nPerm=self.permutation)
+                    x = permute(x, num_permutations=self.permutation)
 
                 if self.rotation != 0:
-                    x = rotate(x, rotation=self.rotation, mask=self.rotation_mask)
+                    x = rotate(x, max_rotation=self.rotation, channel_mask=self.rotation_mask)
 
                 if self.time_warping != 0:
-                    x = time_warp(x, sigma=self.time_warping)
+                    x = time_warp(x, std_dev=self.time_warping)
 
                 if self.scale_sigma != 0:
-                    x = scale(x, sigma=self.scale_sigma)
+                    x = scale(x, std_dev=self.scale_sigma)
 
                 if self.mag_warping != 0:
-                    x = mag_warp(x, sigma=self.mag_warping)
+                    x = magnitude_warp(x, std_dev=self.mag_warping)
 
                 if self.noise_snr_db != 0:
                     x = jitter(x, snr_db=self.noise_snr_db)
