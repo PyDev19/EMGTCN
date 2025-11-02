@@ -5,6 +5,7 @@ from augmentations import *
 import numpy as np
 import scipy
 import torch
+import yaml
 
 
 class EMGDataset(Dataset):
@@ -280,29 +281,7 @@ class EMGDataset(Dataset):
 
 
 if __name__ == "__main__":
-    config = {
-        "repetitions": [1, 3, 4, 6, 8, 9, 10],
-        "input_directory": [f"data/processed/subject-{i:02d}" for i in range(1, 28)],
-        "batch_size": 128,
-        "sample_weight": True,
-        "dim": [1, 10],
-        "classes": [i for i in range(53)],
-        "shuffle": True,
-        "noise_snr_db": 25,
-        "scale_sigma": 0.0,
-        "window_size": 0,
-        "window_step": 0,
-        "rotation": 0,
-        "rotation_mask": None,
-        "time_warping": 0.2,
-        "mag_warping": 0.2,
-        "permutation": 0,
-        "size_factor": 10,
-        "pad_len": None,
-        "pad_value": -10.0,
-        "min_max_norm": False,
-        "update_after_epoch": False,
-    }
+    config = yaml.load(open('config.yaml', 'r'), Loader=yaml.FullLoader)['dataset']
     
     dataset = EMGDataset(config)
     print(len(dataset))
